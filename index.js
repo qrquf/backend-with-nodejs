@@ -1,34 +1,60 @@
 const express=require('express');
 const app=express();
 const port=8000;
+const item=require('./models/schema.js');
 const fs=require('fs');
 const Users=require('./data.json');
+const jwt=require('jsonwebtoken');
 const { time } = require('console');
 app.listen(port,()=>{
     console.log("the server has started listening");
 });
-const mongoose=require('mongoose');
-const mongouri='mongodb://127.0.0.1:27017/handicraft?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.6';
-mongoose.connect(mongouri,{
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(()=>console.log("connected successfully")).catch((error)=>console.log(error));
+var token;
+const key='sidd@123';
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const schema=mongoose.Schema({
-    email:{type:String,required:true},
-    name:{type:String,required:true},
-   
+app.post('/jwtauth',async (req,res)=>{
+const data=req.body;
+const items=await item.find({email:data.email,name:data.name});
+if(items==null)
+{
+    return res.send("invalid email or name");
+}
+else{
+    token=await jwt.sign({
+        id:items.id,
+        email:items.email,
+        name:items.name
+    },
+    key
+);
+return res.json(items);
+}
 });
-const item=mongoose.model("users",schema);
-
 app.post('/insertdata',async (req,res)=> {
-const data=new item(req.body);
-console.log(req.body);
-const saveditem=await data.save();
-return res.json(saveditem);
+    const data=new item(req.body);
+    console.log(req.body);
+    const saveditem=await data.save();
+    return res.json();
+    });
+    const data2=async (req,res,next)=>
+    {
+        await  jwt.verify(token,key,(err)=>{
+          
+        });
+        next();
+    };
+    
+app.get('/verifyuser',data2,async (req,res)=>{
+ return res.send("login successful");
 });
 
+app.get('/finddata/:email/:name',async (req,res)=>{    
+const name=req.params.name;
+    console.log(email);
+    const d=await item.find({email:email,name:name});
+    return res.json(d);
+});
 app.get('/users',(req,res)=>{
 return res.json(Users);
 });
