@@ -40,21 +40,31 @@ app.post('/insertdata',async (req,res)=> {
     const data2=async (req,res,next)=>
     {
         await  jwt.verify(token,key,(err)=>{
-          
         });
         next();
     };
     
 app.get('/verifyuser',data2,async (req,res)=>{
- return res.send("login successful");
+ return res.send({token});
 });
-
 app.get('/finddata/:email/:name',async (req,res)=>{    
 const name=req.params.name;
     console.log(email);
     const d=await item.find({email:email,name:name});
     return res.json(d);
 });
+app.get('/restrictedlogin',async (req,res)=>{
+const r=req.header('Authorization');
+    const token1=r && r.split(' ')[1];
+    console.log(token1);
+   
+     console.log(token);
+    await  jwt.verify(token1,key,(err,user)=>{
+        if (err) return res.status(403).send({ error: 'Invalid token' });
+        else  return  res.status(400).send('login successful');
+    });
+   
+})
 app.get('/users',(req,res)=>{
 return res.json(Users);
 });
@@ -67,7 +77,7 @@ app.get('/adduser',(req,res)=>{
     (err) => {
         if (err) {
             console.error("Error writing to log file:", err);
-        }
+                 }
     });
    return res.json(Users);
 });
