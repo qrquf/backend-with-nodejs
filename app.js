@@ -63,9 +63,8 @@ return res.json(items);
 });
 app.post('/insertdata',async (req,res)=> {
     const data=new item(req.body);
-    console.log(req.body);
-    const saveditem=await data.save();
-    return res.json();
+   const saveditem=await data.save();
+    return res.json(saveditem);
     });
     const data2=async (req,res,next)=>
     {
