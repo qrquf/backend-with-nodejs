@@ -4,6 +4,6 @@ const schema=mongoose.Schema({
     name:{type:String,required:true},
    
 });
-const item=mongoose.model("users",schema);
+const item=mongoose.model("user",schema);
 
 module.exports=item;
