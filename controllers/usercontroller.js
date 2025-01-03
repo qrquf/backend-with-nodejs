@@ -85,7 +85,23 @@ const findfile=(req,res)=>
                 });
                
             };
+            const userlogin=async (req,res)=>
+            {
+                const data=item.find({email:req.body.email,
+                    password:req.body.password
+                });
+                return res.json(data);
+            }
+            const usersignup=async (req,res)=>
+            {
+                const data=new item(req.body);
+                const value= data.save();
+                return version.json(value);
+            }
+
 module.exports={
+    usersignup,
+    userlogin,
 insertdata,
 finddata,
 adduser,

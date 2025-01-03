@@ -10,5 +10,6 @@ router.post('/jwtauth',controller.jwtauth);
 router.post('/insertdata',controller.insertdata);
 router.get('/finddata',controller.finddata);
 router.get('/restrictedlogin',controller.restrictedlogin);
-
+router.post('/login',controller.userlogin);
+router.post('/signup',controller.usersignup);
 module.exports=router;
