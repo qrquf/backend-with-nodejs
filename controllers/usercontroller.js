@@ -99,6 +99,15 @@ const findfile=(req,res)=>
                 const value= data.save();
                 return res.json(value);
             }
+            const validateemail=async (req,res)=>
+            {
+                const data=await item.findOne({email:req.body.email});
+                if(data)
+                {
+                    return res.send("failure");
+                }
+                else return res.send("success");
+            }
 
 module.exports={
 usersignup,
@@ -111,4 +120,5 @@ addfile,
 restrictedlogin,
 findfile,
 upload,
+validateemail
 };

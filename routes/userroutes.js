@@ -12,5 +12,5 @@ router.get('/finddata',controller.finddata);
 router.get('/restrictedlogin',controller.restrictedlogin);
 router.post('/login',controller.userlogin);
 router.post('/signup',controller.usersignup);
-
+router.post('/validateemail',controller.upload.fields([]),controller.validateemail);
 module.exports=router;
