@@ -6,6 +6,7 @@ app.use(cors);
 app.listen(process.env.PORT,()=>{
     console.log("the server has started listening");
 });
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const routes=require('./routes/index.js');
 app.use('/',routes);
