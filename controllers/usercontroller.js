@@ -4,13 +4,11 @@ const Users=require('../data.json');
 const jwt=require('jsonwebtoken');
 const multer=require('multer');
 const key='sidd@123';
-
 const insertdata=async (req,res)=>{
 const data=new item(req.body);
 const saveditem=await data.save();
 return res.json(saveditem);
-     };
- 
+     }; 
 const adduser=(req,res)=>{
         Users.push({
             'name':'siddharth srivastava',
@@ -28,7 +26,6 @@ const adduser=(req,res)=>{
 const addfile=(req,res)=>{
     const data=req.file.destination+'/'+req.file.filename;
     return res.send({data});
-    
     };
 
 const storage=multer.diskStorage(
@@ -96,12 +93,12 @@ const findfile=(req,res)=>
             {
                 const data=new item(req.body);
                 const value= data.save();
-                return version.json(value);
+                return res.json(value);
             }
 
 module.exports={
-    usersignup,
-    userlogin,
+usersignup,
+userlogin,
 insertdata,
 finddata,
 adduser,
