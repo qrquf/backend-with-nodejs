@@ -84,10 +84,14 @@ const findfile=(req,res)=>
             };
             const userlogin=async (req,res)=>
             {
-                const data=item.find({email:req.body.email,
+                const data=await item.findOne({email:req.body.email,
                     password:req.body.password
                 });
-                return res.json(data);
+                        if(data)
+                {
+                return res.json({message:'successful'});
+                }
+                else return res.json({message:'failed'});   
             }
             const usersignup=async (req,res)=>
             {
