@@ -104,9 +104,9 @@ const findfile=(req,res)=>
                 const data=await item.findOne({email:req.body.email});
                 if(data)
                 {
-                    return res.send("failure");
+                    return res.send("success");
                 }
-                else return res.send("success");
+                else return res.send("failure");
             }
 
 module.exports={
