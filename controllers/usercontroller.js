@@ -50,32 +50,39 @@ const findfile=(req,res)=>
     else return res.send("file successfully downloaded");
     });
     };
+    var token1;
     const jwtauth=async (req,res)=>{
         const data=req.body;
-        const items=await item.find({email:data.email,name:data.name});
+        const items=await item.findOne({email:data.email,password:data.password});
         if(items==null)
         {
-            return res.send("invalid email or name");
+            return res.json({message:"failure"
+            });
         }
         else{
-            token=await jwt.sign({
-                id:items.id,
+            var token=await jwt.sign({
                 email:items.email,
                 name:items.name
             },
             key
         );
-        return res.json(items);
+
+        return res.json(
+            {
+         message:"success",
+         token:token       
+            }
+        );
         }
         };
         const finddata=async (req,res)=>{    
             const d=await item.find({});
-                return res.json(d);
+            return res.json(d);
             };
             const restrictedlogin=async (req,res)=>{
             const r=req.header('Authorization');
                 const token1=r && r.split(' ')[1];
-                console.log(token1);
+            //    console.log(token1);
                 await  jwt.verify(token1,key,(err,user)=>{
                 if (err) return res.status(403).send({ error: 'Invalid token' });
                 else  return  res.status(400).send('login successful');
@@ -87,16 +94,16 @@ const findfile=(req,res)=>
                 const data=await item.findOne({email:req.body.email,
                     password:req.body.password
                 });
-                        if(data)
+                    if(data)
                 {
-                return res.json({message:'successful'});
+                return res.send("success");
                 }
-                else return res.json({message:'failed'});   
+                else return res.send("failure");   
             }
             const usersignup=async (req,res)=>
             {
                 const data=new item(req.body);
-                const value= data.save();
+                const value= await data.save();
                 return res.json(value);
             }
             const validateemail=async (req,res)=>
