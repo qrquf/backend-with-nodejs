@@ -118,7 +118,7 @@ const findfile=(req,res)=>
             const finduser=async(req,res)=>{
         const data=req.query.email;
         const  finder=await item.findOne({email:data});
-        return finder;
+        return res.json(finder);
             }
 
 module.exports={
