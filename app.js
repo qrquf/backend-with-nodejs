@@ -3,7 +3,7 @@ const express=require('express');
 const app=express();
 const cors=require('cors');
 
-app.listen(process.env.PORT,'0.0.0.0',()=>{
+app.listen(process.env.PORT,()=>{
     console.log("the server has started listening");
 });
 app.use(cors());
