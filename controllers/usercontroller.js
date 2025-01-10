@@ -115,8 +115,14 @@ const findfile=(req,res)=>
                 }
                 else return res.send("failure");
             }
+            const finduser=async(req,res)=>{
+        const data=req.query.email;
+        const  finder=await item.findOne({email:data});
+        return finder;
+            }
 
 module.exports={
+    finduser,
 usersignup,
 userlogin,
 insertdata,
