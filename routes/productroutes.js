@@ -9,4 +9,6 @@ router.post('/addproduct',proudctcontroller.upload.fields([
     { name: 'product3', maxCount: 1 },
   ]),proudctcontroller.addproduct);
   router.get('/viewproduct',proudctcontroller.viewproduct);
-module.exports=router;
+  router.get('/getfeedback',proudctcontroller.givefeedback);
+
+  module.exports=router;

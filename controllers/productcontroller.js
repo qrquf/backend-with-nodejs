@@ -1,6 +1,6 @@
 const item=require('../models/productschema.js');
 const multer=require('multer');
-
+const item2=require('../models/feedbackschema.js');
 const storage=multer.diskStorage(
     {
         destination: (req, file, cb) => {
@@ -27,8 +27,20 @@ const addproduct=async(req,res)=>
         const data=await item.find({});
         return res.json(data);
     }
+    const givefeedback=async(req,res)=>{
+        const data=await item2.find({p_id:req.query.p_id});
+        return res.json(data);
+    } 
+    const insertfeedback=async(req,res)=>
+    {
+        const data=new item2(req.body);
+       const r= await data.save();
+       return res.json(r);
+    }
     module.exports={
     upload,
     addproduct,
-    viewproduct
+    viewproduct,
+    givefeedback,
+    insertfeedback
     }
