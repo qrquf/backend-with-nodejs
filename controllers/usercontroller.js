@@ -134,6 +134,20 @@ const updateuser=async(req,res)=>
     );
     return res.json(update);
 }
+const updatephoto=async(req,res)=>{
+    const name1='uploads/'+await req.files['photo'][0].filename;
+    req.body.photo=name1;
+    const data=req.body;
+    
+    const update=await item.findOneAndUpdate(
+        {email:data.email},
+        {$set:data},
+        {
+            new:true
+        }
+    );
+    return res.json(update);
+}
 module.exports={
     finduser,
 usersignup,
@@ -147,5 +161,6 @@ restrictedlogin,
 findfile,
 upload,
 validateemail,
-updateuser
+updateuser,
+updatephoto
 };

@@ -14,5 +14,6 @@ router.post('/login',controller.upload.fields([]),controller.userlogin);
 router.post('/signup',controller.usersignup);
 router.post('/validateemail',controller.upload.fields([]),controller.validateemail);
 router.get('/finduser',controller.finduser);
-router.post('/updateuser',controller.upload.single('photo'),controller.updateuser);
+router.post('/updateuser',controller.upload.fields([]),controller.updateuser);
+router.post('/updatephoto',controller.upload.single('photo'),controller.updatephoto);
 module.exports=router;
