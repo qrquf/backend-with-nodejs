@@ -124,8 +124,8 @@ const updateuser=async(req,res)=>
 {
     const data=req.body;
     const update=await item.findOneAndUpdate(
-        {email:data.email},
-        data,
+        {_id:data.id},
+        {$set:data},
         {
             new:true
         }
