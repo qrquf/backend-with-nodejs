@@ -120,7 +120,18 @@ const findfile=(req,res)=>
         const  finder=await item.findOne({email:data});
         return res.json([finder]);
             }
-
+const updateuser=async(req,res)=>
+{
+    const data=req.body;
+    const update=await item.findOneAndUpdate(
+        {email:data.email},
+        data,
+        {
+            new:true
+        }
+    );
+    return res.json(update);
+}
 module.exports={
     finduser,
 usersignup,
@@ -133,5 +144,6 @@ addfile,
 restrictedlogin,
 findfile,
 upload,
-validateemail
+validateemail,
+updateuser
 };
