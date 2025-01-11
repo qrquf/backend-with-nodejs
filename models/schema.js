@@ -5,7 +5,8 @@ const schema=mongoose.Schema({
     password:{type:String,required:true},
     name:{type:String,required:true},
     number:{type:String,required:true},
-    photo:{type:String}
+    photo:{type:String},
+    _id:{type:String }
 },
 {
     versionKey:false,

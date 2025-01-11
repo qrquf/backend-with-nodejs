@@ -4,6 +4,7 @@ const Users=require('../data.json');
 const jwt=require('jsonwebtoken');
 const multer=require('multer');
 const key='sidd@123';
+const mongoose=require('../connections/dbconnection.js');
 const insertdata=async (req,res)=>{
 const data=new item(req.body);
 const saveditem=await data.save();
@@ -123,8 +124,9 @@ const findfile=(req,res)=>
 const updateuser=async(req,res)=>
 {
     const data=req.body;
+    
     const update=await item.findOneAndUpdate(
-        {_id:data.id},
+        {email:data.email},
         {$set:data},
         {
             new:true
