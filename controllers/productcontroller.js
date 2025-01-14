@@ -53,6 +53,18 @@ const addproduct=async(req,res)=>
         const del=await cart.deleteOne({p_id:req.body.p_id,u_id:req.body.u_id});
         return res.json(del);
     }
+    const checkcart=async(req,res)=>
+    {
+        const data=await cart.findOne({"p_id":req.body.p_id,"u_id":req.body.u_id});
+        if(data)
+        {
+        return res.send("success");
+        }
+        else
+        {
+        return res.send("fail");
+        }
+    }
     const viewcart=async(req,res)=>{
         const d=await useritem.findOne({email:req.query.email});
         const pipeline = [
@@ -98,6 +110,7 @@ const addproduct=async(req,res)=>
     insertfeedback,
     viewcart,
     addcart,
-    deletecart
+    deletecart,
+    checkcart
 
     }
