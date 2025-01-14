@@ -1,6 +1,9 @@
 const item=require('../models/productschema.js');
 const multer=require('multer');
 const item2=require('../models/feedbackschema.js');
+const useritem=require('../models/schema.js');
+const cart=require('../models/cartschema.js');
+const mongoose=require('../connections/dbconnection.js');
 const storage=multer.diskStorage(
     {
         destination: (req, file, cb) => {
@@ -33,14 +36,62 @@ const addproduct=async(req,res)=>
     } 
     const insertfeedback=async(req,res)=>
     {
-        const data=new item2(req.body);
+       const data=new item2(req.body);
        const r= await data.save();
        return res.json(r);
     }
+    const addcart=async(req,res)=>{
+        const p_id=new mongoose.Types.ObjectId(req.body.p_id);
+        const d=new cart({"p_id":p_id,
+            "u_id":req.body.u_id
+        });
+        const save=await d.save();
+        return res.json(save);
+    }
+    const viewcart=async(req,res)=>{
+        const d=await useritem.findOne({email:req.query.email});
+        const pipeline = [
+        {$match:{
+                "u_id":d._id 
+               }},
+            {
+              $lookup: {
+                from: 'products', // Foreign collection name
+                localField: 'p_id', // Field in the current collection
+                foreignField: '_id', // Field in the foreign collection
+                as: 'details', // Output array field
+              },
+            },
+            {
+              $unwind: {
+                path: '$details', // Unwind the details array
+              },
+            },
+            {
+              $replaceRoot: {
+                newRoot: '$details', // Replace the root document with the details object
+              },
+            },
+            {
+                $addFields: {
+                  p_id: "$_id"
+                  
+                }
+              },
+              {
+                $unset: "_id"
+              }
+          ];
+          const results = await cart.aggregate(pipeline);
+    return res.json(results);
+}
     module.exports={
     upload,
     addproduct,
     viewproduct,
     givefeedback,
-    insertfeedback
+    insertfeedback,
+    viewcart,
+    addcart
+
     }
