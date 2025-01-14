@@ -11,5 +11,6 @@ router.post('/addproduct',proudctcontroller.upload.fields([
   router.get('/viewproduct',proudctcontroller.viewproduct);
   router.get('/getfeedback',proudctcontroller.givefeedback);
   router.get('/getcart',proudctcontroller.viewcart);
-  router.post('/addcart',proudctcontroller.addcart);
+  router.post('/addcart',proudctcontroller.upload.fields([]),proudctcontroller.addcart);
+  router.post('/deletecart',proudctcontroller.upload.fields([]),proudctcontroller.deletecart);
   module.exports=router;

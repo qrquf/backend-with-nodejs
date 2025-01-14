@@ -48,6 +48,11 @@ const addproduct=async(req,res)=>
         const save=await d.save();
         return res.json(save);
     }
+    const deletecart=async(req,res)=>
+    {
+        const del=await cart.deleteOne({p_id:req.body.p_id,u_id:req.body.u_id});
+        return res.json(del);
+    }
     const viewcart=async(req,res)=>{
         const d=await useritem.findOne({email:req.query.email});
         const pipeline = [
@@ -92,6 +97,7 @@ const addproduct=async(req,res)=>
     givefeedback,
     insertfeedback,
     viewcart,
-    addcart
+    addcart,
+    deletecart
 
     }
