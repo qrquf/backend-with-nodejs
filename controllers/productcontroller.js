@@ -69,7 +69,7 @@ const addproduct=async(req,res)=>
         const d=await useritem.findOne({email:req.query.email});
         const pipeline = [
         {$match:{
-                "u_id":d._id 
+            "u_id":d._id 
                }},
             {
               $lookup: {
@@ -85,6 +85,12 @@ const addproduct=async(req,res)=>
               },
             },
             {
+                $addFields: {
+                  "details.u_id": "$u_id",
+                  
+                }
+              },
+            {
               $replaceRoot: {
                 newRoot: '$details', // Replace the root document with the details object
               },
@@ -92,7 +98,6 @@ const addproduct=async(req,res)=>
             {
                 $addFields: {
                   p_id: "$_id"
-                  
                 }
               },
               {
