@@ -4,6 +4,7 @@ const item2=require('../models/feedbackschema.js');
 const useritem=require('../models/schema.js');
 const cart=require('../models/cartschema.js');
 const mongoose=require('../connections/dbconnection.js');
+
 const storage=multer.diskStorage(
     {
         destination: (req, file, cb) => {
@@ -107,6 +108,55 @@ const addproduct=async(req,res)=>
           const results = await cart.aggregate(pipeline);
     return res.json(results);
 }
+const viewbyseller=async(req,res)=>{
+  const pipeline=[
+    {
+      $match: {
+        "_id":ObjectId(req.query.s_id)
+      }
+      
+    },
+    {
+      $lookup: {
+        from: "products",
+        localField: "email",
+        foreignField: "email",
+        as: "details"
+      }
+      
+    },
+    {
+      $unwind: {
+        path: '$details',
+      }
+    },
+    {
+      $replaceRoot: {
+        newRoot: '$details'
+      }
+    }
+  ];
+  const data=await item.aggregate(pipeline);
+  return res.json(data);
+};
+const updateproduct=async(req,res)=>{
+  if(req.files.length>0)
+  {
+    
+  const name1='uploads/'+await req.files['product1'][0].filename;
+  const name2='uploads/'+await req.files['product2'][0].filename;
+  const name3='uploads/'+await  req.files['product3'][0].filename;
+  req.body.product1=name1;
+  req.body.product2=name2;
+  req.body.product3=name3;   
+  }
+ 
+  const data=await item.findOneAndUpdate({_id:new mongoose.Types.ObjectId(req.body._id)},
+    {$set:req.body},
+    {new:true}
+  );
+  return res.json(data);
+}
     module.exports={
     upload,
     addproduct,
@@ -116,6 +166,7 @@ const addproduct=async(req,res)=>
     viewcart,
     addcart,
     deletecart,
-    checkcart
-
+    checkcart,
+    viewbyseller,
+    updateproduct
     }

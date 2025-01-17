@@ -14,4 +14,10 @@ router.post('/addproduct',proudctcontroller.upload.fields([
   router.post('/addcart',proudctcontroller.upload.fields([]),proudctcontroller.addcart);
   router.post('/deletecart',proudctcontroller.upload.fields([]),proudctcontroller.deletecart);
   router.post('/checkcart',proudctcontroller.upload.fields([]),proudctcontroller.checkcart);
+  router.get('/sellerproduct',proudctcontroller.viewbyseller);
+  router.post('/updateproduct',proudctcontroller.upload.fields([
+    { name: 'product1', maxCount: 1 },
+    { name: 'product2', maxCount: 1 },
+    { name: 'product3', maxCount: 1 },
+  ]),proudctcontroller.updateproduct);
   module.exports=router;
