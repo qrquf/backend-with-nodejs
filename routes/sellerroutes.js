@@ -6,4 +6,5 @@ router.use(express.urlencoded({ extended: true }));
 router.post("/addseller",sellercontroller.upload.fields([]),sellercontroller.addseller);
 router.post("/sellerlogin",sellercontroller.upload.fields([]),sellercontroller.sellerlogin);
 router.post("/sellerupdate",sellercontroller.upload.fields([]),sellercontroller.updateseller);
+router.get('/findseller',sellercontroller.findseller);
 module.exports=router;

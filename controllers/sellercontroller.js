@@ -35,9 +35,14 @@ const updateseller=async(req,res)=>
 });
 return data; 
 }
+const findseller=async(req,res)=>{
+    const data=await item.find({email:req.query.email});
+    return res.json(data);
+}
 module.exports={
     addseller,
     sellerlogin,
     upload,
-    updateseller
+    updateseller,
+    findseller
 };
