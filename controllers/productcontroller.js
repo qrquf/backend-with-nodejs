@@ -114,7 +114,6 @@ const viewbyseller=async(req,res)=>{
       $match: {
         "_id":new mongoose.Types.ObjectId(req.query.s_id)
       }
-      
     },
     {
       $lookup: {
@@ -123,7 +122,6 @@ const viewbyseller=async(req,res)=>{
         foreignField: "email",
         as: "details"
       }
-      
     },
     {
       $unwind: {

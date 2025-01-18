@@ -1,6 +1,6 @@
 const mongoose=require('../connections/dbconnection.js');
 const sellerschema=mongoose.Schema(
-    {
+    {_id:{type:mongoose.Types.ObjectId},
         first:{type:String},
         second:{type:String},
         last:{type:String},
