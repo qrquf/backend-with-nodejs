@@ -157,6 +157,11 @@ const updateproduct=async(req,res)=>{
   );
   return res.json(data);
 }
+const deleteproduct=async(req,res)=>
+{
+  const data=await item.deleteOne({_id:new mongoose.Types.ObjectId(req.body._id)});
+  return res.json(data);
+}
     module.exports={
     upload,
     addproduct,
@@ -168,5 +173,6 @@ const updateproduct=async(req,res)=>{
     deletecart,
     checkcart,
     viewbyseller,
-    updateproduct
+    updateproduct,
+    deleteproduct
     }
