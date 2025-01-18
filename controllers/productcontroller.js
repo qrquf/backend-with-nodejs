@@ -4,7 +4,7 @@ const item2=require('../models/feedbackschema.js');
 const useritem=require('../models/schema.js');
 const cart=require('../models/cartschema.js');
 const mongoose=require('../connections/dbconnection.js');
-
+const seller=require('../models/sellerschema.js');
 const storage=multer.diskStorage(
     {
         destination: (req, file, cb) => {
@@ -112,7 +112,7 @@ const viewbyseller=async(req,res)=>{
   const pipeline=[
     {
       $match: {
-        "_id":ObjectId(req.query.s_id)
+        "_id":new mongoose.Types.ObjectId(req.query.s_id)
       }
       
     },
@@ -136,7 +136,7 @@ const viewbyseller=async(req,res)=>{
       }
     }
   ];
-  const data=await item.aggregate(pipeline);
+  const data=await seller.aggregate(pipeline);
   return res.json(data);
 };
 const updateproduct=async(req,res)=>{
