@@ -41,18 +41,32 @@ const findseller=async(req,res)=>{
     return res.json(data);
 }
 const addsubscription=async(req,res)=>{
-   const startdate=new Date(req.body.Start_date);
+    const d=subscription.findOne({Seller_id:req.query.s_id});
+    if(d && req.query.s_id!=null)
+    {
+        const startdate=new Date(req.body.Start_date);
+        const expiry=new Date(req.body.Expiry_date);
+        const updatedata=await subscription.findOneAndUpdate({Seller_id:req.query.s_id},
+    {$set:req.body},
+    {$new:true}
+ );
+ return res.send(updatedata);
+}
+    else
+    {
+    const startdate=new Date(req.body.Start_date);
     const expiry=new Date(req.body.Expiry_date);
-    const data=new subscription({"subscritpion_id":req.body.subscritpion_id,"Start_date":startdate,"Expiry_date":expiry,
-    "Plan_name":req.body.Plan_name,
-    "Subs_value":req.body.Subs_value,
-    "Seller_id":req.body.Seller_id,
-    "Plan_name":req.body.Plan_name,
-});
+    const data=new subscription(req.body);
     const savedata=await data.save();
     return res.json(savedata);
+}}
+const viewsubscription=async(req,res)=>{
+    const sellerid=req.query.s_id;
+    const data=await subscription.find({Seller_id:sellerid});
+    return res.json(data);
 }
 module.exports={
+    viewsubscription,
     addsubscription,
     addseller,
     sellerlogin,

@@ -8,5 +8,5 @@ router.post("/sellerlogin",sellercontroller.upload.fields([]),sellercontroller.s
 router.post("/sellerupdate",sellercontroller.upload.fields([]),sellercontroller.updateseller);
 router.get('/findseller',sellercontroller.findseller);
 router.post('/addsubscription',sellercontroller.addsubscription);
-
+router.post('/viewsubscription',sellercontroller.viewsubscription);
 module.exports=router;
