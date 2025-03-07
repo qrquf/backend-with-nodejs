@@ -7,4 +7,6 @@ router.post("/addseller",sellercontroller.upload.fields([]),sellercontroller.add
 router.post("/sellerlogin",sellercontroller.upload.fields([]),sellercontroller.sellerlogin);
 router.post("/sellerupdate",sellercontroller.upload.fields([]),sellercontroller.updateseller);
 router.get('/findseller',sellercontroller.findseller);
+router.post('/addsubscription',sellercontroller.addsubscription);
+
 module.exports=router;
