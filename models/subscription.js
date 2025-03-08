@@ -5,7 +5,7 @@ const schema=mongoose.Schema({
     Start_date:{type:String},
     Expiry_date:{type:String},
     Plan_name:{type:String},
-    Subs_value:{type:String},
+    subs_value:{type:String},
 },{collection:'subscription'});
 const item=mongoose.model("subscription",schema);
 module.exports=item;

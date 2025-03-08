@@ -45,9 +45,7 @@ const addsubscription=async(req,res)=>{
     const d=subscription.findOne({Seller_id:req.body.Seller_id});
     if(d && req.query.s_id!=null)
     {
-        const startdate=new Date(req.body.Start_date);
-        const expiry=new Date(req.body.Expiry_date);
-        const updatedata=await subscription.findOneAndUpdate({Seller_id:req.query.s_id},
+    const updatedata=await subscription.findOneAndUpdate({Seller_id:req.query.s_id},
     {$set:req.body},
     {$new:true}
  );
