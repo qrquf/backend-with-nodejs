@@ -9,4 +9,5 @@ router.post("/sellerupdate",sellercontroller.upload.fields([]),sellercontroller.
 router.get('/findseller',sellercontroller.findseller);
 router.post('/addsubscription',sellercontroller.addsubscription);
 router.post('/viewsubscription',sellercontroller.viewsubscription);
+router.post('/buysubscription',sellercontroller.buysubscription);
 module.exports=router;

@@ -2,6 +2,7 @@ const multer=require('multer');
 const mongoose=require('../connections/dbconnection.js');
 const item=require('../models/sellerschema.js');
 const subscription=require('../models/subscription.js');
+const transaction=require('../models/transactionschema.js');
 const storage=multer.diskStorage(
     {
         destination: (req, file, cb) => {
@@ -41,7 +42,7 @@ const findseller=async(req,res)=>{
     return res.json(data);
 }
 const addsubscription=async(req,res)=>{
-    const d=subscription.findOne({Seller_id:req.query.s_id});
+    const d=subscription.findOne({Seller_id:req.body.Seller_id});
     if(d && req.query.s_id!=null)
     {
         const startdate=new Date(req.body.Start_date);
@@ -65,7 +66,13 @@ const viewsubscription=async(req,res)=>{
     const data=await subscription.find({Seller_id:sellerid});
     return res.json(data);
 }
+const buysubscription=async(req,res)=>{
+    const data=new transaction(req.body);
+    const savedata=await data.save();
+    return res.json(savedata);
+}
 module.exports={
+    buysubscription,
     viewsubscription,
     addsubscription,
     addseller,
