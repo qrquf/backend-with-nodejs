@@ -76,7 +76,7 @@ const findproduct= async (req,res)=>
 const aggregate=[
     {
       $match: {
-        _id: mongoose.Types.ObjectId(req.body.s_id),
+        _id: new mongoose.Types.ObjectId(req.body.s_id),
       },
     },
     {
