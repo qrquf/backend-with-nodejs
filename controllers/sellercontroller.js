@@ -3,6 +3,7 @@ const mongoose=require('../connections/dbconnection.js');
 const item=require('../models/sellerschema.js');
 const subscription=require('../models/subscription.js');
 const transaction=require('../models/transactionschema.js');
+const { Mongoose } = require('mongoose');
 const storage=multer.diskStorage(
     {
         destination: (req, file, cb) => {
@@ -69,7 +70,32 @@ const buysubscription=async(req,res)=>{
     const savedata=await data.save();
     return res.json(savedata);
 }
+const findproduct= async (req,res)=>
+  
+  {
+const aggregate=[
+    {
+      $match: {
+        _id: mongoose.Types.ObjectId(req.body.s_id),
+      },
+    },
+    {
+      $lookup: {
+        from: "products",
+        localField: "email",
+        foreignField: "email",
+        as: "total",
+      },
+    },
+    {
+      $unwind: "$total",
+    },
+  ];
+  const data=await item.aggregate(aggregate);
+  return res.json(data);
+}
 module.exports={
+    findproduct,
     buysubscription,
     viewsubscription,
     addsubscription,

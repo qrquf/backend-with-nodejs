@@ -1,6 +1,8 @@
 const mongoose=require('../connections/dbconnection.js');
 const productschema=mongoose.Schema({
-   // _id:{type:mongoose.Types.ObjectId},
+   // _id:{type:mongoose.Types.ObjectId
+   // 
+   // },
     name:{type:String},
     product1:{type:String},
     product2:{type:String},

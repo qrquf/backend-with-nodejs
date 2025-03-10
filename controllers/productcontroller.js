@@ -160,6 +160,7 @@ const deleteproduct=async(req,res)=>
   const data=await item.deleteOne({_id:new mongoose.Types.ObjectId(req.body._id)});
   return res.json(data);
 }
+
     module.exports={
     upload,
     addproduct,
