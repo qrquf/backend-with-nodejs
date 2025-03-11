@@ -141,9 +141,9 @@ const updateproduct=async(req,res)=>{
   if(req.files.length>0)
   {
     
-  const name1='uploads/'+await req.files['product1'][0].filename;
-  const name2='uploads/'+await req.files['product2'][0].filename;
-  const name3='uploads/'+await  req.files['product3'][0].filename;
+  const name1=await req.files['product1'][0].path;
+  const name2=await req.files['product2'][0].path;
+  const name3=await  req.files['product3'][0].path;
   req.body.product1=name1;
   req.body.product2=name2;
   req.body.product3=name3;   
