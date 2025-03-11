@@ -17,9 +17,9 @@ const storage=multer.diskStorage(
 );
 const upload=new multer({storage});
 const addproduct=async(req,res)=>
-    {   const name1='uploads/'+await req.files['product1'][0].filename;
-        const name2='uploads/'+await req.files['product2'][0].filename;
-        const name3='uploads/'+await  req.files['product3'][0].filename;
+    {   const name1=req.files['product1'][0].path;
+        const name2= req.files['product2'][0].path;
+        const name3= req.files['product3'][0].path;
         req.body.product1=name1;
         req.body.product2=name2;
         req.body.product3=name3;   
