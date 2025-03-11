@@ -1,9 +1,10 @@
 const express=require('express');
 const router=express.Router();
 const proudctcontroller=require('../controllers/productcontroller.js');
+const uploads=require('../middlewware/cloudinarystorage.js');
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
-router.post('/addproduct',proudctcontroller.upload.fields([
+router.post('/addproduct',uploads.fields([
     { name: 'product1', maxCount: 1 },
     { name: 'product2', maxCount: 1 },
     { name: 'product3', maxCount: 1 },
@@ -15,7 +16,7 @@ router.post('/addproduct',proudctcontroller.upload.fields([
   router.post('/deletecart',proudctcontroller.upload.fields([]),proudctcontroller.deletecart);
   router.post('/checkcart',proudctcontroller.upload.fields([]),proudctcontroller.checkcart);
   router.get('/sellerproduct',proudctcontroller.viewbyseller);
-  router.post('/updateproduct',proudctcontroller.upload.fields([
+  router.post('/updateproduct',uploads.fields([
     { name: 'product1', maxCount: 1 },
     { name: 'product2', maxCount: 1 },
     { name: 'product3', maxCount: 1 },
