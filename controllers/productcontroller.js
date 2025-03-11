@@ -41,6 +41,13 @@ const addproduct=async(req,res)=>
        const r= await data.save();
        return res.json(r);
     }
+    const updatefeedback=async(req,res)=>
+    { 
+      const data=await item2.findOneAndUpdate({p_id:req.body.p_id,u_id:req.body.u_id},
+        {$set:req.body,},
+        {new:true}
+      );
+    }
     const addcart=async(req,res)=>{
         const p_id=new mongoose.Types.ObjectId(req.body.p_id);
         const d=new cart({"p_id":p_id,
@@ -163,6 +170,7 @@ const deleteproduct=async(req,res)=>
 
     module.exports={
     upload,
+    updatefeedback,
     addproduct,
     viewproduct,
     givefeedback,

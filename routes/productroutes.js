@@ -11,6 +11,8 @@ router.post('/addproduct',uploads.fields([
   ]),proudctcontroller.addproduct);
   router.get('/viewproduct',proudctcontroller.viewproduct);
   router.get('/getfeedback',proudctcontroller.givefeedback);
+  router.post('/insertfeedback',proudctcontroller.insertfeedback);
+  router.post('/updatefeedback',proudctcontroller.upload.fields([]),proudctcontroller.updatefeedback);
   router.get('/getcart',proudctcontroller.viewcart);
   router.post('/addcart',proudctcontroller.upload.fields([]),proudctcontroller.addcart);
   router.post('/deletecart',proudctcontroller.upload.fields([]),proudctcontroller.deletecart);
