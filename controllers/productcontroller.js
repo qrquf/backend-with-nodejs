@@ -168,7 +168,7 @@ const deleteproduct=async(req,res)=>
   return res.json(data);
 }
 const findseller=async(req,res)=>{
-  const result = await Product.aggregate([
+  const result = await item.aggregate([
     {
       $match: {
         _id:new mongoose.Types.ObjectId(req.query.id)  // Your product ID
