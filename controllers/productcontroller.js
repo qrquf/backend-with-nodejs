@@ -167,6 +167,33 @@ const deleteproduct=async(req,res)=>
   const data=await item.deleteOne({_id:new mongoose.Types.ObjectId(req.body._id)});
   return res.json(data);
 }
+const findseller=async(req,res)=>{
+  const result = await Product.aggregate([
+    {
+      $match: {
+        _id:new mongoose.Types.ObjectId(req.query.id)  // Your product ID
+      }
+    },
+    {
+      $lookup: {
+        from: "sellers",              // Collection name (should be in lowercase plural)
+        localField: "email",       // Field in Product collection
+        foreignField: "email",          // Field in Seller collection
+        as: "sell"
+      }
+    },
+    {
+      $unwind: "$sell"
+    },
+    {
+      $replaceRoot: {
+        newRoot: "$sell"            // Replace the entire document with seller
+      }
+    }
+  ]);
+  return res.json(result);
+   
+}
 
     module.exports={
     upload,
@@ -181,5 +208,6 @@ const deleteproduct=async(req,res)=>
     checkcart,
     viewbyseller,
     updateproduct,
-    deleteproduct
+    deleteproduct,
+    findseller
     }

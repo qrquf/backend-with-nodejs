@@ -42,6 +42,7 @@ const findseller=async(req,res)=>{
     const data=await item.find({email:req.query.email});
     return res.json(data);
 }
+
 const addsubscription=async(req,res)=>{
     const d=subscription.findOne({Seller_id:req.body.Seller_id});
     if(d && req.query.s_id!=null)

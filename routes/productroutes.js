@@ -24,4 +24,5 @@ router.post('/addproduct',uploads.fields([
     { name: 'product3', maxCount: 1 },
   ]),proudctcontroller.updateproduct);
   router.post('/deleteproduct',proudctcontroller.upload.fields([]),proudctcontroller.deleteproduct);
+  router.get('/findseller',proudctcontroller.findseller); 
   module.exports=router;
